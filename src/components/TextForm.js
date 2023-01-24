@@ -24,9 +24,36 @@ export default function TextForm(props) {
     
     const[text, setText]= useState('');
     
+     const [myStyle, setMyStyle ] = useState(
+        {
+            color:'black',
+            backgroundColor:'white',
+        }
+     )
+     const [btntext, setBtnText] = useState("Enable Dark Mode")
+     const toggleStyle=()=>{
+        if(myStyle.color==='white'){
+            setMyStyle(
+                {
+                    color:'black',
+                    backgroundColor:'white'
+                }
+            )
+            setBtnText("Enable Light Mode");
+        }else{
+            setMyStyle(
+                {
+                    color:'white',
+                    backgroundColor:'black'
+                }
+            )
+            setBtnText("Enable Dark Mode");
+        }
+        
+     }
   return (
     <>
-        <div className="container">
+        <div className="container" style={myStyle}>
             <h1>    
                 {props.heading}
             </h1>
@@ -34,8 +61,9 @@ export default function TextForm(props) {
             <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
             </div>
             <button className="btn btn-primary mx-2" onClick={handeResetClick}>Clear Text</button>
-            <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to UpperCase</button>
-            <button className="btn btn-primary mx-2" onClick={handleLoClick}>Convert to LowerCase</button>
+            <button className="btn btn-primary mx-2" onClick={handleUpClick} >Convert to UpperCase</button>
+            <button className="btn btn-primary mx-2" onClick={handleLoClick} >Convert to LowerCase</button>
+            <button onClick={toggleStyle} className="btn btn-outline-primary" type="button" style={myStyle}>{btntext}</button>
             
         </div>
         
@@ -45,6 +73,9 @@ export default function TextForm(props) {
         <p>{text.split(" ").length} words and {text.length} characters </p>
         <p>{0.008*text.split(" ").length}Minutes Read </p>
         </div>
+        
+       
+        
         </>
   )
 }
